@@ -1,0 +1,36 @@
+@model DojoActivity
+
+<form action="/create/activity" method="post" class="bg-light card col-5 mx-auto p-4">
+    <h2 class="text-center">Create a Corona-safe Activity!</h2>
+        <div class="form-group">
+            <label asp-for="ActivityName"></label>
+            <input class="form-control" asp-for="ActivityName" placeholder="Title">
+            <span class="text-danger" asp-validation-for="ActivityName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Date"></label>
+            <input class="form-control" asp-for="Date" placeholder="Date">
+            <span class="text-danger" asp-validation-for="Date"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Time"></label>
+            <input class="form-control" asp-for="Time" placeholder="Time">
+            <span class="text-danger" asp-validation-for="Time"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DurationInt"></label>
+            <input class="form-control" asp-for="DurationInt" placeholder="DurationInt">
+            <select asp-for="DurationStr">
+                <option value="hours">Hours</option>
+                <option value="minutes">Minutes</option>
+                <option value="days">Days</option>
+            </select>
+            <span class="text-danger" asp-validation-for="DurationInt"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description" placeholder="Description">
+            <span class="text-danger" asp-validation-for="Description"></span>
+        </div>
+        <button class="btn warn">Create activity</button>
+</form>

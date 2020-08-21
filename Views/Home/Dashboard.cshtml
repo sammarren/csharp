@@ -1,0 +1,45 @@
+@model List<DojoActivity>
+
+<h1 class="card bg-light text-center">Welcome to the Dojo Activity Center, @ViewBag.User.FirstName!</h1>
+
+<table class="table-warning table">
+    <thead class="bg-dark text-warning">
+        <th>Activity</th>
+        <th>Date and Time</th>
+        <th>Duration</th>
+        <th>Event Coordinator</th>
+        <th>No. of Participants</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        @foreach(var m in Model)
+        {
+            <tr>
+                <td><a href="/show/@m.DojoActivityId" class="hre">@m.ActivityName</a></td>
+                <td>@m.Date.ToShortDateString() at @m.Time.ToShortTimeString() </td>
+                <td>@m.DurationInt @m.DurationStr</td>
+                <td>@m.Coordinator.FirstName</td>
+                <td>@m.Attendees.Count</td>
+                <td>
+                    @if(ViewBag.User.UserId == m.Coordinator.UserId)
+                    {
+                        <a class="btn btrn-danger" href="/cancel/@m.DojoActivityId">Delete Activity</a>
+                    }
+                    else
+                    {
+                        if(m.Attendees.Any( f => f.UserId == ViewBag.User.UserId ))
+                        {
+                            <a href="/leave/@m.DojoActivityId" class="btn btn-primary">Leave</a>
+                        }
+                        else{
+                            <a href="/join/@m.DojoActivityId" class="btn btn-success">Join</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<a href="/new" class="btn btn-success">Add New Activity</a>
+<a href="/logout" class="btn btn-danger">Log Out</a>

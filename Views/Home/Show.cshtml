@@ -1,0 +1,33 @@
+@model DojoActivity
+
+<div class="card">
+    <h1 class="card text-center">@Model.ActivityName</h1>
+    <div class="card-body">
+        <p class="card-title">Event Coordinator @Model.Coordinator.FirstName @Model.Coordinator.LastName</p>
+        <p class="card-text">Description: @Model.Description</p>
+        <h3 class="card-text">Participants:</h3>
+        <ul class="list-group">
+            @foreach(var f in Model.Attendees)
+            {
+                <li class="list-group-item">@f.Guest.FirstName @f.Guest.LastName</li>
+            }
+        </ul>
+    </div>
+    <div class="card-footer">
+        @if(ViewBag.User.UserId == @Model.Coordinator.UserId)
+        {
+            <a class="btn btrn-danger" href="/cancel/@Model.DojoActivityId">Delete Activity</a>
+        }
+        else
+        {
+            if(Model.Attendees.Any( f => f.UserId == ViewBag.User.UserId ))
+            {
+                <a href="/leave/@Model.DojoActivityId" class="btn btn-primary">Leave</a>
+            }
+            else
+            {
+                <a href="/join/@Model.DojoActivityId" class="btn btn-success">Join</a>
+            }
+        }
+    </div>
+</div>
